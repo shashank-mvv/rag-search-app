@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Model - Bilingual Assistant</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/i18next@21.6.0/i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/i18next-http-backend@2.4.1/i18nextHttpBackend.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/i18next-browser-languagedetector@7.1.0/i18nextBrowserLanguageDetector.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2" data-i18n="title">RAG Model Assistant</h1>
+            <p class="text-gray-600" data-i18n="subtitle">Ask questions and get answers based on your documents</p>
+            
+            <div class="mt-4">
+                <label class="inline-flex items-center">
+                    <span class="mr-2" data-i18n="language">Language:</span>
+                    <select id="languageSelector" class="border rounded px-2 py-1">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी (Hindi)</option>
+                    </select>
+                </label>
+            </div>
+        </header>
+
+        <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2" for="subject" data-i18n="subject">Subject/Field</label>
+                <input type="text" id="subject" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                       placeholder="Enter subject or field of study">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2" for="question" data-i18n="question">Your Question</label>
+                <textarea id="question" rows="3" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                          placeholder="Type your question here..."></textarea>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2" data-i18n="upload">Upload Document</label>
+                
+                <!-- File Upload Label - Always visible -->
+                <div class="mb-4">
+                    <label for="documents" class="file-upload-label cursor-pointer border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 block">
+                        <input type="file" id="documents" name="documents" class="hidden" accept=".pdf,.txt,.docx,image/*" multiple>
+                        <div class="upload-text">
+                            <div class="flex flex-col items-center space-y-2">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <p class="text-lg font-medium text-gray-700" data-i18n="dragAndDrop">Drop files here or click to browse</p>
+                                <p class="text-sm text-gray-500" data-i18n="fileTypes">PDF, TXT, DOCX, and image files supported (max 5 files, 10MB each)</p>
+                                <p class="text-xs text-blue-600 mt-2" id="fileCountIndicator">0/5 files selected</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- File List (Hidden by default) -->
+                <div id="fileList" class="mt-3 space-y-2">
+                    <!-- Files will be listed here -->
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <button type="button" id="clearFormBtn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md transition duration-300" 
+                        data-i18n="clearForm">
+                    Clear Form
+                </button>
+                <button id="submitBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-md transition duration-300" 
+                        data-i18n="getAnswer">
+                    Get Answer
+                </button>
+            </div>
+        </div>
+
+        <div id="responseContainer" class="max-w-3xl mx-auto mt-8 hidden">
+            <h2 class="text-xl font-semibold mb-4" data-i18n="response">Response:</h2>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div id="responseContent" class="text-gray-800"></div>
+                <div class="mt-4 flex justify-end">
+                    <button id="copyBtn" class="text-blue-600 hover:text-blue-800 text-sm" data-i18n="copyToClipboard">
+                        Copy to Clipboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

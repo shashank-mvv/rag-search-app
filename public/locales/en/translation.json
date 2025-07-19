@@ -1,0 +1,21 @@
+{
+  "title": "RAG Model Assistant",
+  "subtitle": "Ask questions and get answers based on your documents",
+  "language": "Language:",
+  "subject": "Subject/Field",
+  "question": "Your Question",
+  "upload": "Upload Document (PDF/Image)",
+  "dragAndDrop": "Drag and drop files here or click to select",
+  "fileTypes": "Accepted file types: PDF, JPG, PNG",
+  "getAnswer": "Get Answer",
+  "response": "Response:",
+  "copyToClipboard": "Copy to Clipboard",
+  "selectedFile": "Selected file",
+  "processing": "Processing...",
+  "fillRequiredFields": "Please fill in all required fields",
+  "errorOccurred": "An error occurred",
+  "copied": "Copied!",
+  "clearForm": "Clear Form",
+  "removeFile": "Remove",
+  "noFileSelected": "No file selected"
+}
